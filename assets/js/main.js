@@ -20,20 +20,40 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
 
+// Geometría del cubo
 const geometry = new THREE.BoxGeometry(1.6, 1.6, 1.6);
 
+// Material verde sólido
 const material = new THREE.MeshBasicMaterial({
-  color: 0x00ff00,
-  //wireframe: true
+  color: 0x00ff00
 });
 
+// Crear el cubo
 const cube = new THREE.Mesh(geometry, material);
 
 scene.add(cube);
 
+// Crear las aristas del cubo
+const edgesGeometry = new THREE.EdgesGeometry(geometry);
+
+// Material negro para las aristas
+const edgesMaterial = new THREE.LineBasicMaterial({
+  color: 0x000000
+});
+
+// Crear las líneas de las aristas
+const edges = new THREE.LineSegments(
+  edgesGeometry,
+  edgesMaterial
+);
+
+// Añadir las aristas al cubo
+cube.add(edges);
+
 function animate(time) {
-  cube.rotation.x = time / 2000;
-  cube.rotation.y = time / 1000;
+  cube.rotation.x = time / 1000;
+  cube.rotation.y = time / 2500;
+  cube.rotation.z = time / 250;
 
   renderer.render(scene, camera);
 }
